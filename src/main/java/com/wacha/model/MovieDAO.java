@@ -11,8 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.wacha.model.MovieDTO;
-
 
 public class MovieDAO {
 
@@ -27,7 +25,8 @@ public class MovieDAO {
 		
 		// 쿼리문을 저장할 변수
 		String sql = null;
-				
+		
+		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.
@@ -65,7 +64,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -450,8 +449,8 @@ public class MovieDAO {
 			return list;
 		}	// getMainMovie_hit() end
 	
-		// 키워드 : 영화 제목,감독 검색 메서드
-		public List<MovieDTO> getMovieKeywordList(String keyword) {
+		// 키워드 : 영화 제목 검색 메서드 (영화 번호, 제목, 나라)
+		public List<MovieDTO> getMovieKeywordList_title(String keyword) {
 			
 			List<MovieDTO> list = new ArrayList<MovieDTO>();
 
@@ -472,6 +471,39 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
+					dto.setMovie_country(rs.getString("movie_country"));
+					
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return list;
+		}	// getMovieKeywordList() end
+		
+		// 키워드 : 영화 제목 검색 메서드 (영화 번호, 제목, 나라)
+		public List<MovieDTO> getMovieKeywordList_director(String keyword) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			try {
+				openConn();
+				
+				sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_director like ? order by movie_num";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					MovieDTO dto = new MovieDTO();
+					
+					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_director(rs.getString("movie_director"));
 					dto.setMovie_country(rs.getString("movie_country"));
 					
@@ -485,7 +517,7 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 
-		// 메인 -> 영화 페이지 넘겨주는 메서드
+		// 영화 정보 불러오는 메서드
 		public MovieDTO getMovie_info(int movie_num) {
 			MovieDTO dto = null;
 			
@@ -508,14 +540,13 @@ public class MovieDAO {
 					dto.setMovie_cont(rs.getString("movie_cont"));
 					dto.setMovie_time(rs.getString("movie_time"));
 					dto.setMovie_date(rs.getString("movie_date"));
-					dto.setMovie_age(rs.getString("movie_age"));
+				//dto.setMovie_age(rs.getInt("movie_age"));
 					dto.setMovie_genre(rs.getString("movie_genre"));
 					dto.setMovie_country(rs.getString("movie_country"));
 					dto.setMovie_director(rs.getString("movie_director"));
-					dto.setMovie_video(rs.getString("movie_video"));
-					dto.setMovie_count(rs.getInt("movie_count"));
-					dto.setMovie_hit(rs.getInt("movie_hit"));
-
+					dto.setMovie_video(rs.getString("movie_director"));
+				//	dto.setMovie_count(rs.getInt("movie_count"));
+				//	dto.setMovie_hit(rs.getInt("movie_hit"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -524,27 +555,28 @@ public class MovieDAO {
 			}
 			return dto;
 		}
-
-		// 감독별 영화 리스트
-		public List<MovieDTO> getMovieList(String director) {
-			List<MovieDTO> list = new ArrayList<MovieDTO>();
-			sql="select * from movie where movie_director = ?";
-			try {
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, director);
-				rs=pstmt.executeQuery();
-				while(rs.next()) {
-					MovieDTO dto = new MovieDTO();
-					
-					
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		public int getMovieCount() {
+			int count=0;
+		
+		try {
+			
+			openConn();
+			
+			sql="select count(*) from movie";
+			
+			pstmt=con.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
 			}
-			
-			return list;
-			
-		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}return count;
+		
+	}
 }
-

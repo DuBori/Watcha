@@ -3,15 +3,20 @@ package com.wacha.model;
 public class UserDTO {
 
 	private int member_num;
-	private String member_id;
 	private String member_name;
+	private String member_id;
 	private String member_pwd;
 	private String member_profile;
 	private String member_birth;
-	private String member_regdate;
 	private String member_image;
 	
-	
+	public String getMember_image() {
+		return member_image;
+	}
+	public void setMember_image(String member_image) {
+		this.member_image = member_image;
+	}
+	private String member_regdate;
 	
 	public int getMember_num() {
 		return member_num;
@@ -19,23 +24,19 @@ public class UserDTO {
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
 	}
-	public String getMember_regdate() {
-		return member_regdate;
+	
+
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setMember_regdate(String member_regdate) {
-		this.member_regdate = member_regdate;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	public String getMember_id() {
 		return member_id;
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
-	}
-	public String getMember_name() {
-		return member_name;
-	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
 	}
 	public String getMember_pwd() {
 		return member_pwd;
@@ -55,16 +56,13 @@ public class UserDTO {
 	public void setMember_birth(String member_birth) {
 		this.member_birth = member_birth;
 	}
-	public String getMember_image() {
-		return member_image;
+
+	public String getMember_regdate() {
+		return member_regdate;
 	}
-	public void setMember_image(String member_image) {
-		this.member_image = member_image;
+	public void setMember_regdate(String member_regdate) {
+		this.member_regdate = member_regdate;
 	}
-	
-	
-	
-	
 
 
 

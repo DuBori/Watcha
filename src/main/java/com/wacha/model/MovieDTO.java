@@ -12,11 +12,6 @@ public class MovieDTO {
 	private String movie_country;
 	private String movie_director;
 	private String movie_video;
-	private int movie_count;
-	private int movie_hit;
-	
-	
-
 	public int getMovie_num() {
 		return movie_num;
 	}
@@ -77,21 +72,6 @@ public class MovieDTO {
 	public void setMovie_video(String movie_video) {
 		this.movie_video = movie_video;
 	}
-	public int getMovie_count() {
-		return movie_count;
-	}
-	public void setMovie_count(int movie_count) {
-		this.movie_count = movie_count;
-	}
-	public int getMovie_hit() {
-		return movie_hit;
-	}
-	public void setMovie_hit(int movie_hit) {
-		this.movie_hit = movie_hit;
-	}
-	
-	
-	
 	
 
 	

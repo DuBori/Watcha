@@ -9,10 +9,14 @@ public class ComentDTO {
 	private int coment_num_son;
 	private int coment_hit;	//좋아용
 	private int coment_nohit;//싫어용
-	private String cocoment_likelist;	
-	private String cocoment_hatelist;
-	private int cocoment_count;
 
+	
+
+	
+
+	// 대댓글 개수 파악 요소
+
+	private int cocoment_count;
 	public int getComent_num() {
 		return coment_num;
 	}
@@ -55,26 +59,12 @@ public class ComentDTO {
 	public void setComent_nohit(int coment_nohit) {
 		this.coment_nohit = coment_nohit;
 	}
-	public String getCocoment_likelist() {
-		return cocoment_likelist;
-	}
-	public void setCocoment_likelist(String cocoment_likelist) {
-		this.cocoment_likelist = cocoment_likelist;
-	}
-	public String getCocoment_hatelist() {
-		return cocoment_hatelist;
-	}
-	public void setCocoment_hatelist(String cocoment_hatelist) {
-		this.cocoment_hatelist = cocoment_hatelist;
-	}
 	public int getCocoment_count() {
 		return cocoment_count;
 	}
 	public void setCocoment_count(int cocoment_count) {
 		this.cocoment_count = cocoment_count;
 	}
-	
-
 	
 
 	
