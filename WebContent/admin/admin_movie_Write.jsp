@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,6 +12,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
         <style type="text/css">
         
         
@@ -188,178 +189,41 @@ float: left;
     
  /* --------------------------------------- */   
 
-
-
-
-.upload {
-  &__box {
-    padding: 40px;
-  }
-  &__inputfile {
-    width: .1px;
-    height: .1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
-  
-  &__btn {
+.file-upload-button {
+    cursor: pointer;
     display: inline-block;
-    font-weight: 600;
     color: #fff;
-    text-align: center;
-    min-width: 116px;
-    padding: 5px;
-    transition: all .3s ease;
-    cursor: pointer;
-    border: 2px solid;
-    background-color: #4045ba;
-    border-color: #4045ba;
-    border-radius: 10px;
-    line-height: 26px;
-    font-size: 14px;
-    
-    &:hover {
-      background-color: unset;
-      color: #4045ba;
-      transition: all .3s ease;
-    }
-    
-    -box {
-      margin-bottom: 10px;
-    }
-  }
-  
-  __img {
-    -wrap {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -10px;
-    }
-    
-    &-box {
-      width: 200px;
-      padding: 0 10px;
-      margin-bottom: 12px;
-    }
-    
-    &-close {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5);
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        text-align: center;
-        line-height: 24px;
-        z-index: 1;
-        cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 11px 20px;
+    border: none;
+    margin-left: -1px;
+    background-color: #962d22;
+    float: left;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 
-        &:after {
-          content: '\2716';
-          font-size: 14px;
-          color: white;
-        }
-      }
-  }
 }
 
-.img-bg {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  padding-bottom: 100%;
-} 
-
-/* --------------------------------------------- */
-.ui-sortable-placeholder { 
-    	border: 1px dashed black!important; 
-        visibility: visible !important;
-        background: #eeeeee78 !important;
-       }
-    .ui-sortable-placeholder * { visibility: hidden; }
-        .RearangeBox.dragElemThumbnail{opacity:0.6;}
-        .RearangeBox {
-            width: 180px;
-            height:240px;
-            padding:10px 5px;
-            cursor: all-scroll;
-            float: left;
-            border: 1px solid #9E9E9E;
-            font-family: sans-serif;
-            display: inline-block;            
-            margin: 5px!important;
-            text-align: center;
-            color: #673ab7;
-            background: #ffc107;
-          /*color: rgb(34, 34, 34);
-            background: #f3f2f1;     */
-        }
-
-
-
-
-body{
-  font-family: sans-serif;
- margin: 0px;
+img{
+  max-width:180px;
 }
-
-.IMGthumbnail{
-    max-width:168px;
-    height:220px;
-    margin:auto;
-  background-color: #ececec;
-  padding:2px;
-  border:none;
-}
-
-.IMGthumbnail img{
-   max-width:100%;
-max-height:100%;
-}
-
-.imgThumbContainer{
-
-  margin:4px;
-  border: solid;
-  display: inline-block;
-  justify-content: center;
-    position: relative;
-    border: 1px solid rgba(0,0,0,0.14);
-  -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
-}
-
-
-
-.imgThumbContainer > .imgName{
-  text-align:center;
-  padding: 2px 6px;
-  margin-top:4px;
-  font-size:13px;
-  height: 15px;
-  overflow: hidden;
-}
-
-.imgThumbContainer > .imgRemoveBtn{
+input[type=file]{
+padding:10px;
+background:#2d2d2d;}
+.filebox input[type="file"] {
     position: absolute;
-    color: #e91e63ba;
-    right: 2px;
-    top: 2px;
-    cursor: pointer;
-    display: none;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }
 
-.RearangeBox:hover > .imgRemoveBtn{ 
-    display: block;
-}
         </style>
-        <link rel="stylesheet" href="css/normalize.css">
-        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/main.css">
+    
     </head>
     
     <body>
@@ -458,6 +322,18 @@ max-height:100%;
             }
 
         });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
        <div  class="can-1">
           <fieldset>
@@ -558,20 +434,16 @@ max-height:100%;
         	</div>
         </div>
 
-            <div >
+            <div class="filebox">
 	          <fieldset >
 	          <legend><span class="number" >11</span>갤러리</legend>
+	           <label for="ex_file">업로드</label>
+	        <input type='file' onchange="readURL(this);" />
 	        
- 			   <div style='padding:14px'>
-        <label for="files"></label>
-        <input id="files" type="file" name="gallery" multiple/>        
-  	  </div>
-				  <div style='padding:14px; margin:auto';>
-				  <div id="sortableImgThumbnailPreview">
-				 
+			<img id="blah" src="http://placehold.it/180" alt="your image" />
 					        
-				    </div>
-				  </div>
+				   
+				  
         	</fieldset>
         	</div>
       
@@ -581,71 +453,5 @@ max-height:100%;
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>
-    <script type="text/javascript">
-	
-	$(function() {
-        $("#sortableImgThumbnailPreview").sortable({
-         connectWith: ".RearangeBox",
-        
-            
-          start: function( event, ui ) { 
-               $(ui.item).addClass("dragElemThumbnail");
-               ui.placeholder.height(ui.item.height());
-       
-           },
-            stop:function( event, ui ) { 
-               $(ui.item).removeClass("dragElemThumbnail");
-           }
-        });
-        $("#sortableImgThumbnailPreview").disableSelection();
-        
-        
-        
-        
- 
-    });
 
-
-
-
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-function handleFileSelect(evt) {
-
-var files = evt.target.files; 
-var output = document.getElementById("sortableImgThumbnailPreview");
-
-// Loop through the FileList and render image files as thumbnails.
-for (var i = 0, f; f = files[i]; i++) {
-
-  // Only process image files.
-  if (!f.type.match('image.*')) {
-    continue;
-  }
-
-  var reader = new FileReader();
-
-  // Closure to capture the file information.
-  reader.onload = (function(theFile) {
-    return function(e) {
-      // Render thumbnail.
-       var imgThumbnailElem = "<div class='RearangeBox imgThumbContainer'><i class='material-icons imgRemoveBtn' onclick='removeThumbnailIMG(this)'>cancel</i><div class='IMGthumbnail' ><img  src='" + e.target.result + "'" + "title='"+ theFile.name + "'/></div><div class='imgName'>"+ theFile.name +"</div></div>";
-                
-                output.innerHTML = output.innerHTML + imgThumbnailElem; 
-      
-    };
-  })(f);
-
-  // Read in the image file as a data URL.
-  reader.readAsDataURL(f);
-}
-}
-
-function removeThumbnailIMG(elm){
-elm.parentNode.outerHTML='';
-}
-
-
-    
-    </script>
 </html>
