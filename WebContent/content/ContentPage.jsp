@@ -649,7 +649,7 @@ $(function() {
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
 								<c:if test="${!empty same.getMovie_imgloc() }">
-									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+									<div><img alt="없음" src="${pageContext.request.contextPath }/image/${same.getMovie_imgloc()}" width="130px" height="100px"></div>
 								</c:if>
 								<c:if test="${empty same.getMovie_imgloc() }">
 									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
@@ -687,8 +687,7 @@ $(function() {
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
               <div class="cd_youCont_div">
-                 <h5>80일간의 세계 일주</h5>
-                 <span>150년 후에도 모험은 계속된다!</span>
+                 <span>이 영화가 더 궁금하다면?</span>
                  <div>
                     <img alt="없" src="${pageContext.request.contextPath }/image/contImg/wachaimg.png" width="20px" height="20px">
                     <span>왓챠 익스클루시브</span>

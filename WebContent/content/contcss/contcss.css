@@ -334,6 +334,7 @@
 	#cd_youCont{
 		display: flex;
 		flex-direction: row;
+		justify-content : center;
 		align-items: center;
 	}
 	#gallery h5{
