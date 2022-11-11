@@ -1,12 +1,11 @@
-s<%@page import="com.wacha.model.StarDTO"%>
+<%@page import="com.wacha.model.StarDTO"%>
 <%@page import="com.wacha.model.StarDAO"%>
 <%@page import="com.wacha.model.MovieDTO"%>
 <%@page import="com.wacha.model.MovieDAO"%>
 <%@page import="com.wacha.model.ImageDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.wacha.model.ImageDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	ImageDAO dao1 = ImageDAO.getInstance();
