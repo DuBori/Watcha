@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -18,7 +19,10 @@ public class ProfileUpdateAction2 implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+
 		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image\\profileupload";
+
+
 //		C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image
 		int fileSize = 10 * 1024 * 1024;  // 10MB 
 		
@@ -30,6 +34,7 @@ public class ProfileUpdateAction2 implements Action {
 		String user_intro = multi.getParameter("pr_intro").trim();
 		String user_birth = multi.getParameter("pr_birth").trim();
 		String user_img = multi.getFilesystemName("pr_img");
+		String user_email = multi.getParameter("pr_email").trim();
 		
 		UserDTO dto = new UserDTO();
 		
@@ -39,6 +44,7 @@ public class ProfileUpdateAction2 implements Action {
 		dto.setMember_profile(user_intro);
 		dto.setMember_birth(user_birth);
 		dto.setMember_image(user_img);
+		dto.setMember_email(user_email);
 		
 		UserDAO dao = UserDAO.getInstance();
 		
@@ -50,6 +56,7 @@ public class ProfileUpdateAction2 implements Action {
 		if(result > 0 ) {
 			forward.setRedirect(false);
 			forward.setPath("profile.do");
+			
 		}else {
 			out.println("<script>");
 			out.println("alert('프로필 수정 실패')");

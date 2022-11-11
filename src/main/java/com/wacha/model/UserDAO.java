@@ -26,7 +26,6 @@ public class UserDAO {
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
-		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.
@@ -64,7 +63,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -183,35 +182,50 @@ public class UserDAO {
 	}
 
 		
-		public int userDelete(String id, String pwd) {
-			
-			int result = 0;
+//		public int userDelete(String id) {
+//			
+//			int result = 0;
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id=?";
+//				pstmt=con.prepareStatement(sql);
+//				pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					
+//					sql="update member set member_use = 0 where member_id = ?";
+//					pstmt=con.prepareStatement(sql);
+//					pstmt.setString(1, id);
+//					result = pstmt.executeUpdate();
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			return result;
+//		}
+		
+		public void userDelete(String id) {
 			
 			try {
 				openConn();
 				
-				sql="select * from member where member_id=?";
+				sql="update member set member_use = 0 where member_id = ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
+				pstmt.executeUpdate();
 				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="update member set member_use = 0 where member_id = ?";
-						pstmt=con.prepareStatement(sql);
-						pstmt.setString(1, id);
-						result = pstmt.executeUpdate();
-					}else {
-						result = -1;
-					}
-				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				closeConn(rs, pstmt, con);
 			}
-			return result;
 		}
 		
 //		public void starDelete(String id, String pwd) {
@@ -241,32 +255,32 @@ public class UserDAO {
 //			}
 //		}
 		
-		public void writeDelete(String id, String pwd) {
-			
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from write where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void writeDelete(String id, String pwd) {
+//			
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id=?";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from write where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
 //		public void comentDelete(String id, String pwd) {
 //			
@@ -365,6 +379,7 @@ public class UserDAO {
 					dto.setMember_profile(rs.getString("member_profile"));
 					dto.setMember_birth(rs.getString("member_birth"));
 					dto.setMember_image(rs.getString("member_image"));
+					dto.setMember_email(rs.getString("member_email"));
 				
 				}
 			} catch (SQLException e) {
@@ -426,14 +441,17 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = ?";
+
+				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=?, member_email=? where member_id = ?";
+
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, dto.getMember_name());
 				pstmt.setString(2, dto.getMember_pwd());
 				pstmt.setString(3, dto.getMember_profile());
 				pstmt.setString(4, dto.getMember_birth());
 				pstmt.setString(5, dto.getMember_image());
-				pstmt.setString(6, dto.getMember_id());
+				pstmt.setString(6, dto.getMember_email());
+				pstmt.setString(7, dto.getMember_id());
 				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -537,6 +555,7 @@ public class UserDAO {
 				dto = new UserDTO();
 				
 				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_name(rs.getString("member_name"));
 				dto.setMember_image(rs.getString("member_image"));
 				
 			}
@@ -583,7 +602,7 @@ public class UserDAO {
 		return dto;
 	}
 		// 회원가입 메서드
-	public int insertMember(String name, String id, String pwd) {
+	public int insertMember(String name, String id, String pwd, String email) {
 		int result = 0, count = 0;
 		
 		try {
@@ -599,7 +618,7 @@ public class UserDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into member values(?,?,?,?,'','',sysdate,default, 1)";
+			sql = "insert into member values(?,?,?,?,'','',sysdate,default, 1, ?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -607,6 +626,7 @@ public class UserDAO {
 			pstmt.setString(2, id);
 			pstmt.setString(3, name);
 			pstmt.setString(4, pwd);
+			pstmt.setString(5, email);
 			
 			result = pstmt.executeUpdate();
 			
@@ -673,6 +693,91 @@ public class UserDAO {
 		return res;
 	}	// findIdforPwd() end
 	
+
+	public int signInKakao(String id, String email) {
+		
+		int result = 0;
+
+		
+		try {
+			openConn();
+			
+			sql = "select member_id from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	public int autoSignUp(String id, String email, String name) {
+        int result = 0, count = 0;
+
+        try {
+            openConn();
+
+            sql = "select max(member_num) from member";
+
+            pstmt = con.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                count = rs.getInt(1) + 1;
+            }
+
+            sql = "insert into member values (?,?,?,'kakao@@','','',sysdate,default,1,?)";
+
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, count);
+            pstmt.setString(2, id);
+            pstmt.setString(3, name);
+            pstmt.setString(4, email);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConn(rs, pstmt, con);
+        }
+        return result;
+    }
+	
+	
+	public int kakaoLogin(String k_id) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_id = ?";
+					
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, k_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+
 	public int AdminuserDelete(String id, String pwd) {
 		
 		int result = 0;
@@ -688,11 +793,50 @@ public class UserDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
+
 		return result;
+
+	}
+
+
+	public List<UserDTO> getmemberList() {
+		sql="select * from member";
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setMember_num(rs.getInt("member_num"));
+				
+				dto.setMember_name(rs.getString("member_name"));
+				
+				dto.setMember_id(rs.getString("member_id"));
+				
+				dto.setMember_pwd(rs.getString("member_pwd"));
+				
+				dto.setMember_birth(rs.getString("member_birth"));
+				
+				dto.setMember_profile(rs.getString("member_profile"));
+				
+				dto.setMember_image(rs.getString("member_image"));					
+				
+				dto.setMember_regdate(rs.getString("member_regdate"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
 	}
 }
 
