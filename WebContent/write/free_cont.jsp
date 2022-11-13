@@ -130,7 +130,7 @@
 					<br>
 					<a style="font-size: 13px; pointer-events: none; color: #757575;">${dto.getFree_date().substring(0,16) } &nbsp; 조회 : ${dto.getFree_hit() } </a>
 					<c:if test="${dto.getMember_id() eq session_id }">
-						<a id="tag_1"style="margin-left: 66%;" href="<%=request.getContextPath()%>/free_modify.do?num=${dto.getFree_num() }">수정</a> / <a id="tag_1" href="<%=request.getContextPath() %>/free_delete.do?num=${dto.getFree_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')">삭제</a>					
+						<a id="tag_1"style="margin-left: 73%;" href="<%=request.getContextPath()%>/free_modify.do?num=${dto.getFree_num() }">수정</a> / <a id="tag_1" href="<%=request.getContextPath() %>/free_delete.do?num=${dto.getFree_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')">삭제</a>					
 					</c:if>
 
 				</div>
@@ -281,7 +281,7 @@ $(function(){
 						table += "</tr>";
 						
 						table += "<tr>";
-						table += "<td><hr width='950'></td>";
+						table += "<td><hr width='1250'></td>";
 						table += "</tr>";
 						
 					}else if('<%=session.getAttribute("session_id")%>' == $(this).find("member_id").text()){ 
@@ -299,7 +299,7 @@ $(function(){
 						table += "</tr>";
 	
 						table += "<tr>";
-						table += "<td><hr width='950'></td>";
+						table += "<td><hr width='1250'></td>";
 						table += "</tr>";
 						
 					}else{
@@ -317,7 +317,7 @@ $(function(){
 						table += "</tr>";
 
 						table += "<tr>";
-						table += "<td><hr width='950'></td>";
+						table += "<td><hr width='1250'></td>";
 						table += "</tr>";						
 					}
 				});

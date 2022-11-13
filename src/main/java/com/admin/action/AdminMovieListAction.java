@@ -63,7 +63,7 @@ public class AdminMovieListAction implements Action {
 		List<MovieDTO>movieList=dao.getmovieList(page,rowsize);
 		
 		
-		request.setAttribute( "movieList", movieList);
+		request.setAttribute("movieList", movieList);
 		
 		request.setAttribute("page", page);
 		
