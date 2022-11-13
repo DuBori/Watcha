@@ -362,15 +362,15 @@ $(function() {
 						<div id="evalScore">
 						
 							<fieldset>
-								<input type="radio" name="reviewStar" value="5" id="rate1" ><label
+								<input type="radio" name="reviewStar" value="5" id="rate1" ><label class="lab"
 									for="rate1">★</label>
-								<input type="radio" name="reviewStar" value="4" id="rate2"><label
+								<input type="radio" name="reviewStar" value="4" id="rate2"><label class="lab"
 									for="rate2">★</label>
-								<input type="radio" name="reviewStar" value="3" id="rate3"><label
+								<input type="radio" name="reviewStar" value="3" id="rate3"><label class="lab"
 									for="rate3">★</label>
-								<input type="radio" name="reviewStar" value="2" id="rate4"><label
+								<input type="radio" name="reviewStar" value="2" id="rate4"><label class="lab"
 									for="rate4">★</label>
-								<input type="radio" name="reviewStar" value="1" id="rate5"><label
+								<input type="radio" name="reviewStar" value="1" id="rate5"><label class="lab"
 									for="rate5">★</label>
 							</fieldset>
 
@@ -472,7 +472,7 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath}/image/${img_dto.getDirector_image().trim()}">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="<%=request.getContextPath()%>/image/${img_dto.getDirector_image()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
@@ -554,15 +554,25 @@ $(function() {
 								<li class="flex_li">
 										<c:forEach items="${clist}" var="coment" begin="0" end="2">
 		                     				 <div id="coment_on">
+		                     				<a href="<%=request.getContextPath()%>/otherprofile.do?member_id=${coment.getMember_id()}"> 
 		                     				 <div class="coment_top">
 		                                          <div>
-		                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+		                                          <c:choose>
+		                                          	<c:when test="${coment.getUser_img() != '프로필로고.jpg' }">
+		                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
+		                                          	</c:when>
+		                                          	<c:otherwise>
+                                                         <img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/프로필_로고.jpg">
+                                                    </c:otherwise>
+		                                          </c:choose>
+		                                             
 		                                             <span>${coment.getMember_id() }</span>
 		                                          </div>
 		                                          <div>
 		                                            	<span>★ ${coment.getMember_star() }</span>
 		                                          </div>
 		                                       </div>
+		                                    </a>
 		                                       <hr>
 		                                       <%--게시글 중단 --%>
 		                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
@@ -590,15 +600,25 @@ $(function() {
 											<c:forEach items="${clist}" var="coment" begin="${i.count*3}" end="${((fn:length(clist) /3)*i.count)+3}">
 			                     			 	
 			                     				 <div id="coment_on">
-			                     				 <div class="coment_top">
-			                                          <div>
-			                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-			                                             <span>${coment.getMember_id() }</span>
-			                                          </div>
-			                                          <div>
-			                                            	<span>★ ${coment.getMember_star() }</span>
-			                                          </div>
-			                                       </div>
+			                     				 <a href="<%=request.getContextPath()%>/otherprofile.do?member_id=${coment.getMember_id()}"> 
+				                     				 <div class="coment_top">
+				                                          <div>
+				                                          <c:choose>
+				                                          	<c:when test="${coment.getUser_img() != '프로필로고.jpg' }">
+				                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
+				                                          	</c:when>
+				                                          	<c:otherwise>
+		                                                         <img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/프로필_로고.jpg">
+		                                                    </c:otherwise>
+				                                          </c:choose>
+				                                             
+				                                             <span>${coment.getMember_id() }</span>
+				                                          </div>
+				                                          <div>
+				                                            	<span>★ ${coment.getMember_star() }</span>
+				                                          </div>
+		                                       		</div>
+				                                   </a>
 			                                       <hr>
 			                                       <%--게시글 중단 --%>
 			                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
@@ -649,10 +669,10 @@ $(function() {
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
 								<c:if test="${!empty same.getMovie_imgloc() }">
-									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+									<div><img alt="없음" src="<%=request.getContextPath()%>/image/${same.getMovie_imgloc()}" width="130px" height="100px"></div>
 								</c:if>
 								<c:if test="${empty same.getMovie_imgloc() }">
-									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
+									<div><img alt="없음" src="<%=request.getContextPath()%>/image/${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
 								</c:if>
 								
 								<div>
@@ -686,9 +706,9 @@ $(function() {
            
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
-              <div class="cd_youCont_div">
-                 <h5>80일간의 세계 일주</h5>
-                 <span>150년 후에도 모험은 계속된다!</span>
+              <div class="cd_youCont_div1">
+                 <h5>영화 예고편 영상</h5>
+                 <span>이 영화가 더 궁금하면?</span>
                  <div>
                     <img alt="없" src="${pageContext.request.contextPath }/image/contImg/wachaimg.png" width="20px" height="20px">
                     <span>왓챠 익스클루시브</span>
