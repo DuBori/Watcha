@@ -13,9 +13,15 @@ public class ComentDTO {
 	private String cocoment_hatelist;
 	private int cocoment_count;
 	private int member_star;
+	private String user_img;
 	
 	
-	
+	public String getUser_img() {
+		return user_img;
+	}
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
 	public int getMember_star() {
 		return member_star;
 	}

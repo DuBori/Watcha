@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <style>
 	#wrapper {
@@ -38,7 +36,7 @@
 		display: none;
 		padding: 20px 0 0;
 		border-top: 1px solid #ddd;
-		height: 70vh;
+		
 	}
 	
 	input[type="radio"] {
@@ -316,7 +314,7 @@
 										
 										<ul class="row row-cols-2">
 											<li class="col-3">
-												<img class="poster" src="${list.image_loc} " alt="영화 포스터" />
+												<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터" />
 											</li>										
 											<li class="col-9">
 												<div class="ex_whole">
@@ -372,7 +370,7 @@
 										
 										<ul class="row row-cols-2">
 											<li class="col-3">
-												<img class="director" src="${ilist[status.index].director_image}" alt="감독 이미지" />
+												<img class="director" src="<%=request.getContextPath()%>/image/${ilist[status.index].director_image}" alt="감독 이미지" />
 											</li>										
 											<li class="col-9">
 												<div class="ex_whole">

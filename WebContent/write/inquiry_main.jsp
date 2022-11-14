@@ -246,7 +246,7 @@
 	  <form method="post" class="was-validated" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
-			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
+			<h2>1:1문의<input type="submit" value="등록" id="img_a"></h2>
 		</header>
 		 <br>
 		 <br>
