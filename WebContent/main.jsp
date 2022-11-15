@@ -47,7 +47,6 @@
 	
 	request.setAttribute("num", number);
 
-
 %>  
 <!DOCTYPE html>
 <html>
